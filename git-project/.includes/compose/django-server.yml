@@ -1,15 +1,15 @@
 services:
   django-server:
-    build:
-      context: ${CURRENT_DIR}docker
-      dockerfile: Dockerfile.dev
-    image: sparrow-local:latest
+    #build:
+    #  context: ${CURRENT_DIR}docker
+    #  dockerfile: Dockerfile.dev
+    #image: sparrow-local:latest
     command: run-django-server
-    volumes:
-      - ${CURRENT_DIR}docker/files/app:/app
+    #volumes:
+    #  - ${CURRENT_DIR}docker/files/app:/app
     ports:
       - "8000:8000"
-    env_file:
-      - ${CURRENT_DIR}.envs/.local
+    #env_file:
+    #  - ${CURRENT_DIR}.envs/.local
     depends_on:
       - redis-server
