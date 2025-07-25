@@ -1,9 +1,5 @@
 services:
   postgres-server:
     image: postgres:latest
-    env_file:
-      - ${CURRENT_DIR}.envs/.local/.postgres
-    volumes:
-      - ${CURRENT_DIR}data/postgres:/postgres
     ports:
       - "5332:5432"
