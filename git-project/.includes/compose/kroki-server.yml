@@ -1,7 +1,5 @@
 services:
   kroki-server:
     image: yuzutech/kroki:latest
-    container_name: kroki-server
     ports:
       - "8000:8000"
-    network_mode: host

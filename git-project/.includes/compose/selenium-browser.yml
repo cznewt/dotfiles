@@ -1,8 +1,6 @@
 services:
   selenium-browser:
     image: selenium/standalone-chrome:97.0-20250202
-    container_name: selenium-browser
     ports:
       - "5900:5900"
       - "4444:4444"
-    network_mode: host

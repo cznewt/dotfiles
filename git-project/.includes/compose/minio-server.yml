@@ -1,7 +1,6 @@
 services:
   minio-server:
     image: minio/minio
-    container_name: minio-server
     command: 'minio server /minio_files --console-address ":9001"'
     env_file:
       - ${CURRENT_DIR}.envs/.local/.minio
@@ -10,10 +9,8 @@ services:
       - "9001:9001"
     volumes:
       - ${CURRENT_DIR}data/minio:/minio_files
-    network_mode: host
   minio-init:
     image: minio/mc
-    container_name: minio-init
     depends_on:
       - minio-server
     env_file:
@@ -24,4 +21,3 @@ services:
       /usr/bin/mc mb myminio/rtm-bunny-applications;
       /usr/bin/mc policy set none myminio/rtm-bunny-applications;
       "
-    network_mode: host

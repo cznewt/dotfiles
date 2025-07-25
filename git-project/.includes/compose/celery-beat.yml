@@ -3,7 +3,6 @@ services:
     build:
       context: ${CURRENT_DIR}docker
       dockerfile: Dockerfile.dev
-    container_name: celery-beat
     image: sparrow-local:latest
     command: run-celery-beat
     volumes:
@@ -13,4 +12,3 @@ services:
     depends_on:
       - django-server
       - redis-server
-    network_mode: host

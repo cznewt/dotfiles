@@ -1,7 +1,6 @@
 services:
   postgis-server:
     image: postgis:latest
-    container_name: postgis-server
     env_file:
       - ${CURRENT_DIR}.envs/.local/.postgres
     volumes:
@@ -9,4 +8,3 @@ services:
       - ${CURRENT_DIR}.includes/docker-compose/postgis-server:/docker-entrypoint-initdb.d
     ports:
       - "5332:5432"
-    network_mode: host
