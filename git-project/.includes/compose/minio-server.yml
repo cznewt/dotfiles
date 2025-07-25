@@ -2,19 +2,19 @@ services:
   minio-server:
     image: minio/minio
     command: 'minio server /minio_files --console-address ":9001"'
-    #env_file:
-    #  - ${CURRENT_DIR}.envs/.local/.minio
+    env_file:
+      - ${CURRENT_DIR:-.}/.envs/.local/.minio
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - ${CURRENT_DIR}data/minio:/minio_files
+      - ${CURRENT_DIR:-.}/data/minio:/minio_files
   minio-init:
     image: minio/mc
     depends_on:
       - minio-server
-    #env_file:
-    #  - ${CURRENT_DIR}.envs/.local/.minio
+    env_file:
+      - ${CURRENT_DIR}.envs/.local/.minio
     entrypoint: >
       /bin/sh -c "
       /usr/bin/mc config host add myminio http://localhost:9000 minioadmin minioadmin;

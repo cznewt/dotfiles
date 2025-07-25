@@ -1,14 +1,14 @@
 services:
   celery-beat:
     build:
-      context: ${CURRENT_DIR}docker
+      context: ${CURRENT_DIR:-.}/docker
       dockerfile: Dockerfile.dev
     image: sparrow-local:latest
     command: run-celery-beat
-    #volumes:
-    #  - ${CURRENT_DIR}docker/files/app:/app
-    #env_file:
-    #  - ${CURRENT_DIR}.envs/.local/
+    volumes:
+      - ${CURRENT_DIR}docker/files/app:/app
+    env_file:
+      - ${CURRENT_DIR}.envs/.local/
     depends_on:
       - django-server
       - redis-server
