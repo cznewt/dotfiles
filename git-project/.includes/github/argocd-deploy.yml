@@ -1,0 +1,62 @@
+name: Deploy app to Argo (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      site_name:
+        description: "The app to publish"
+        default: "sparrow-cms"
+        type: string
+      app_sync:
+        description: "Trigger sync in ArgoCD after setting the app"
+        default: true
+        type: boolean
+      scale_set_name:
+        description: "scale_set_name"
+        required: false
+        default: lab-chr-scale-set
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      site_name:
+        description: "The app to publish"
+        default: "sparrow-cms"
+        type: string
+      app_sync:
+        description: "Trigger sync in ArgoCD after setting the app"
+        default: true
+        type: boolean
+      version:
+        description: "The app image tag version"
+        required: false
+        type: string
+      scale_set_name:
+        description: "scale_set_name"
+        required: false
+        default: lab-chr-scale-set
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  BRANCH_NAME: ${{ github.sha || github.head_ref || github.ref_name }}
+
+jobs:
+  deploy-rtm-hr:
+    environment: ${{ inputs.scale_set_name }}
+    runs-on: ${{ inputs.scale_set_name }}
+    container:
+      image: argoproj/argocd:latest
+      options: --user root
+    steps:
+      - name: Login to ArgoCD
+        run: argocd login argo-cd-argocd-server.argocd.svc.cluster.local --password "${{ secrets.ARGOCD_PASS }}" --username ${{ secrets.ARGOCD_USER }} --insecure
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV
+      - name: Deploy
+        if: github.ref_name == 'main'
+        run: |
+          argocd app set ${{ inputs.site_name }} -p image.tag="sha-${SHORT_SHA}"
+          argocd app sync ${{ inputs.site_name }}
+          argocd app wait ${{ inputs.site_name }} --timeout 900
