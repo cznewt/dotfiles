@@ -1,0 +1,4 @@
+services:
+  django-server:
+    image: sparrow-local:latest
+    command: run-django-server

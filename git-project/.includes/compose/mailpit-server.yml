@@ -1,0 +1,5 @@
+services:
+  mailpit-server:
+    image: docker.io/axllent/mailpit:latest
+    ports:
+      - "8025:8025"
