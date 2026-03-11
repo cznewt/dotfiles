@@ -1,0 +1,23 @@
+name: Validate ESPHome configuration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate ESPHome config
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/esphome/esphome:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate configuration
+        run: |
+          find esphome -maxdepth 1 -name '*.yaml' ! -name 'secrets.yaml' | while read -r f; do
+            esphome config "$f"
+          done

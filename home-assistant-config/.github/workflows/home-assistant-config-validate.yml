@@ -1,0 +1,20 @@
+name: Validate Home Assistant Configuration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate HA Config
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/home-assistant/home-assistant:stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate configuration
+        run: python3 -m homeassistant --config . --script check_config
