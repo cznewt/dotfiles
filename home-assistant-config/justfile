@@ -1,0 +1,9 @@
+#!/usr/bin/env just --justfile
+
+import './.includes/just/just.just'
+import './.includes/just/esphome.just'
+import './.includes/just/home-assistant.just'
+
+[doc('Show available just recipes.')]
+default:
+    @just --list
