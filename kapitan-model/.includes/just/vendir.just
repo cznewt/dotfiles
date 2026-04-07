@@ -1,5 +1,15 @@
 #!/usr/bin/env just --justfile
 
+[doc('Synchronize top-level .includes from upstream using vendir.')]
+[group('vendir')]
+sync-includes:
+    @docker run --rm=true \
+        -v $SSH_AUTH_SOCK:/ssh-agent \
+        -v $(pwd):/source \
+        -e SOURCE_PATH="/source" \
+        docker.io/cznewt/backstage-tools:latest vendir-sync
+    @sudo chown -R $(id -u):$(id -g) ./.includes
+
 [doc('Sync single catalog component.')]
 [group('vendir')]
 vendir-component-sync COMPONENT:
