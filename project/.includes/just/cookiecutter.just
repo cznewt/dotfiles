@@ -1,6 +1,6 @@
 #!/usr/bin/env just --justfile
 
-docker_cmd := "docker run -it --rm=true --network host"
+docker_cmd := "docker run --rm=true --network host"
 docker_compose_cmd := "docker compose"
 
 [doc('Build and push production container image.')]
@@ -22,7 +22,7 @@ publish-all-images: publish-prod-image publish-dev-image
 [doc('Locally build production container image.')]
 [group('docker container')]
 build-prod-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -33,7 +33,7 @@ build-prod-image:
         -e IMAGE_NAME="$IMAGE_NAME" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-build
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -47,7 +47,7 @@ build-prod-image:
 [doc('Push production container image to registry.')]
 [group('docker container')]
 push-prod-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -58,7 +58,7 @@ push-prod-image:
         -e IMAGE_NAME="$IMAGE_NAME" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-push
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -73,7 +73,7 @@ push-prod-image:
 [doc('Locally build development container image.')]
 [group('docker container')]
 build-dev-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -84,7 +84,7 @@ build-dev-image:
         -e IMAGE_NAME="$IMAGE_NAME-dev" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-build
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -98,7 +98,7 @@ build-dev-image:
 [doc('Push development container image to registry.')]
 [group('docker container')]
 push-dev-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -109,7 +109,7 @@ push-dev-image:
         -e IMAGE_NAME="$IMAGE_NAME-dev" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-push
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $PWD/docker:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \

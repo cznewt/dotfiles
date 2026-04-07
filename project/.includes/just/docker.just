@@ -1,6 +1,6 @@
 #!/usr/bin/env just --justfile
 
-docker_cmd := "docker run -it --rm=true --network host"
+docker_cmd := "docker run --rm=true --network host"
 docker_compose_cmd := "docker compose"
 
 [doc('Build and push container image.')]
@@ -10,7 +10,7 @@ publish-image: build-image push-image
 [doc('Locally build container image.')]
 [group('docker container')]
 build-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $CURRENT_DIR:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -21,7 +21,7 @@ build-image:
         -e IMAGE_NAME="$IMAGE_NAME" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-build
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $CURRENT_DIR:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -35,7 +35,7 @@ build-image:
 [doc('Push container image to registry.')]
 [group('docker container')]
 push-image:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $CURRENT_DIR:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -45,7 +45,7 @@ push-image:
         -e IMAGE_NAME="$IMAGE_NAME" \
         -e IMAGE_TAG="$IMAGE_TAG" \
         docker.io/cznewt/docker-tools:latest docker-container-push
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v $CURRENT_DIR:/source \
         -v /var/lib/containers:/var/lib/containers \
         -v /var/run/docker.sock:/var/run/docker.sock \

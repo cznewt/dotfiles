@@ -3,7 +3,7 @@
 [doc('Validate Home Assistant configuration.')]
 [group('home-assistant')]
 home-assistant-config-validate:
-    @docker run -it --rm=true \
+    @docker run --rm=true \
         -v ${PWD}:/config \
         ghcr.io/home-assistant/home-assistant:stable \
         python3 -m homeassistant --config /config --script check_config
