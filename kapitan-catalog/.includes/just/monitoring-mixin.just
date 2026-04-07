@@ -5,7 +5,7 @@ monitoring_tools_image := "docker.io/cznewt/monitoring-tools-amd64:latest"
 [doc('Build monitoring mixin.')]
 [group('monitoring')]
 monitoring-mixin-build:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/mixins:/source \
         -e SOURCE_PATH="/source" \
         -e BUILD_PATH="/source" \
@@ -14,7 +14,7 @@ monitoring-mixin-build:
 [doc('Initialize monitoring mixin.')]
 [group('monitoring')]
 monitoring-mixin-init:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/mixins:/source \
         -e SOURCE_PATH="/source" \
         -e BUILD_PATH="/source" \
@@ -23,7 +23,7 @@ monitoring-mixin-init:
 [doc('Build monitoring mixin techdocs.')]
 [group('monitoring')]
 monitoring-mixin-techdocs-build:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd):/source \
         -e SOURCE_PATH="/source" \
         -e BUILD_PATH="/source" \

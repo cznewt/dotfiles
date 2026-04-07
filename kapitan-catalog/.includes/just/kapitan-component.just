@@ -6,7 +6,7 @@ container_tools_image := "docker.io/cznewt/container-tools:latest"
 [doc('Clean compiled Kapitan target output.')]
 [group('kapitan')]
 kapitan-target-clean:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/manifests/kapitan/compiled:/source \
         -e SOURCE_PATH="/source" \
         {{container_tools_image}} clean
@@ -14,7 +14,7 @@ kapitan-target-clean:
 [doc('Build single Kapitan target using jsonnet.')]
 [group('kapitan')]
 kapitan-target-build:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -24,7 +24,7 @@ kapitan-target-build:
 [doc('Build complete Kapitan inventory using jsonnet.')]
 [group('kapitan')]
 kapitan-inventory-build:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -34,7 +34,7 @@ kapitan-inventory-build:
 [doc('Fetch Kapitan jsonnet dependencies.')]
 [group('kapitan')]
 kapitan-dependency-fetch:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -44,7 +44,7 @@ kapitan-dependency-fetch:
 [doc('Show complete Kapitan inventory rendered metadata.')]
 [group('kapitan')]
 kapitan-inventory-metadata-show:
-    @docker run -i --rm=true \
+    @docker run --rm=true \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
