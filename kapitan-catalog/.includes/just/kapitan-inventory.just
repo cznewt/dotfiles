@@ -6,6 +6,7 @@ kapitan_tools_image := "docker.io/cznewt/kapitan-tools:latest"
 [group('kapitan')]
 kapitan-inventory-build:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd):/source \
         -v $(pwd)/compiled:/build \
         -e SOURCE_PATH="/source" \

@@ -7,6 +7,7 @@ container_tools_image := "docker.io/cznewt/container-tools:latest"
 [group('kapitan')]
 kapitan-target-clean:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd)/manifests/kapitan/compiled:/source \
         -e SOURCE_PATH="/source" \
         {{container_tools_image}} clean
@@ -15,6 +16,7 @@ kapitan-target-clean:
 [group('kapitan')]
 kapitan-target-build:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -25,6 +27,7 @@ kapitan-target-build:
 [group('kapitan')]
 kapitan-inventory-build:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -35,6 +38,7 @@ kapitan-inventory-build:
 [group('kapitan')]
 kapitan-dependency-fetch:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \
@@ -45,6 +49,7 @@ kapitan-dependency-fetch:
 [group('kapitan')]
 kapitan-inventory-metadata-show:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd)/manifests/kapitan:/source \
         -v $(pwd)/manifests/kapitan:/build \
         -e SOURCE_PATH="/source" \

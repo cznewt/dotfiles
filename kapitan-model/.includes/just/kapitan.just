@@ -4,6 +4,7 @@
 [group('kapitan')]
 kapitan-inventory-metadata-show:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd):/source \
         -v $(pwd)/compiled:/build \
         -e SOURCE_PATH="/source" \
@@ -14,6 +15,7 @@ kapitan-inventory-metadata-show:
 [group('kapitan')]
 kapitan-inventory-build:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd):/source \
         -v $(pwd)/compiled:/build \
         -e SOURCE_PATH="/source" \
@@ -24,6 +26,7 @@ kapitan-inventory-build:
 [group('kapitan')]
 kapitan-target-build TARGET:
     @docker run --rm=true \
+        --user $(id -u):$(id -g) \
         -v $(pwd):/source \
         -v $(pwd)/compiled:/build \
         -e SOURCE_PATH="/source" \
